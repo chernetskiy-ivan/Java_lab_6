@@ -23,7 +23,7 @@ public class Field extends JPanel {
     // реализующий интерфейс ActionListener
     private Timer repaintTimer = new Timer(10, new ActionListener() {
         public void actionPerformed(ActionEvent ev) {
-        // Задача обработчика события ActionEvent - перерисовка окна
+            // Задача обработчика события ActionEvent - перерисовка окна
             repaint();
         }
     });

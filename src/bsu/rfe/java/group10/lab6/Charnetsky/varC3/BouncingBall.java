@@ -23,13 +23,12 @@ public class BouncingBall implements Runnable{
     private double speedY;
     // Конструктор класса BouncingBall
     public BouncingBall(Field field) {
-    // Необходимо иметь ссылку на поле, по которому прыгает мяч,
-    // чтобы отслеживать выход за его пределы
+        // Необходимо иметь ссылку на поле, по которому прыгает мяч,
+        // чтобы отслеживать выход за его пределы
         // через getWidth(), getHeight()
         this.field = field;
         // Радиус мяча случайного размера
-        radius = new Double(Math.random()*(MAX_RADIUS -
-                MIN_RADIUS)).intValue() + MIN_RADIUS;
+        radius = new Double(Math.random()*(MAX_RADIUS - MIN_RADIUS)).intValue() + MIN_RADIUS;
         // Абсолютное значение скорости зависит от диаметра мяча,
         // чем он больше, тем медленнее
         speed = new Double(Math.round(5*MAX_SPEED / radius)).intValue();
@@ -43,8 +42,7 @@ public class BouncingBall implements Runnable{
         speedX = 3*Math.cos(angle);
         speedY = 3*Math.sin(angle);
         // Цвет мяча выбирается случайно
-        color = new Color((float)Math.random(), (float)Math.random(),
-                (float)Math.random());
+        color = new Color((float)Math.random(), (float)Math.random(), (float)Math.random());
         // Начальное положение мяча случайно
         x = Math.random()*(field.getSize().getWidth()-2*radius) + radius;
         y = Math.random()*(field.getSize().getHeight()-2*radius) + radius;
@@ -94,7 +92,8 @@ public class BouncingBall implements Runnable{
                 // Скорость = 15 (быстро), засыпаем на 1 мс.
                 Thread.sleep(16 - speed);
             }
-        } catch (InterruptedException ex) {// Если нас прервали, то ничего не делаем
+        } catch (InterruptedException ex) {
+            // Если нас прервали, то ничего не делаем
             // и просто выходим (завершаемся)
         }
     }
