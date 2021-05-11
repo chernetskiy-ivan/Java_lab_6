@@ -49,7 +49,7 @@ public class Field extends JPanel {
     }
     public synchronized void pauseGreen() {
         for (BouncingBall ball: balls) {
-            if(ball.getColor().getGreen() >= 2*(ball.getColor().getBlue() + ball.getColor().getRed())) {
+            if(ball.getRadius() >= 30) {
                 ball.setPaused();
             }
         }

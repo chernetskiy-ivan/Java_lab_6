@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
     private static final int WIDTH = 700;
     private static final int HEIGHT = 500;
     private JMenuItem pauseMenuItem;
-    private JMenuItem pauseGreenMenuItem;
+    private JMenuItem pauseHugeMenuItem;
     private JMenuItem resumeMenuItem;
 
     private Field field = new Field();
@@ -34,10 +34,9 @@ public class MainFrame extends JFrame {
                 field.addBall();
                 if (!pauseMenuItem.isEnabled() &&
                         !resumeMenuItem.isEnabled() &&
-                        !pauseGreenMenuItem.isEnabled()) {
+                        !pauseHugeMenuItem.isEnabled()) {
                     pauseMenuItem.setEnabled(true);
-                    pauseGreenMenuItem.setEnabled(true);
-                    pauseGreenMenuItem.setEnabled(true);
+                    pauseHugeMenuItem.setEnabled(true);
                 }
             }
         };
@@ -50,28 +49,28 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 field.pause();
                 pauseMenuItem.setEnabled(false);
-                pauseGreenMenuItem.setEnabled(false);
+                pauseHugeMenuItem.setEnabled(false);
                 resumeMenuItem.setEnabled(true);
             }
         };
         pauseMenuItem = controlMenu.add(pauseAction);
         pauseMenuItem.setEnabled(false);
 
-        Action pauseActionGreen = new AbstractAction("Приостановить движение зеленых шаров") {
+        Action pauseActionHuge = new AbstractAction("Приостановить движение больших шаров") {
             public void actionPerformed(ActionEvent event) {
                 field.pauseGreen();
                 pauseMenuItem.setEnabled(false);
                 resumeMenuItem.setEnabled(true);
             }
         };
-        pauseGreenMenuItem = controlMenu.add(pauseActionGreen);
-        pauseGreenMenuItem.setEnabled(false);
+        pauseHugeMenuItem = controlMenu.add(pauseActionHuge);
+        pauseHugeMenuItem.setEnabled(false);
 
         Action resumeAction = new AbstractAction("Возобновить движение") {
             public void actionPerformed(ActionEvent event) {
                 field.resume();
                 pauseMenuItem.setEnabled(true);
-                pauseGreenMenuItem.setEnabled(true);
+                pauseHugeMenuItem.setEnabled(true);
                 resumeMenuItem.setEnabled(false);
             }
         };

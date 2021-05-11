@@ -31,8 +31,9 @@ public class BouncingBall implements Runnable {
     public boolean isPaused() {
         return paused;
     }
-    public Color getColor() {
-        return color;
+
+    public int getRadius() {
+        return radius;
     }
 
     public BouncingBall(Field field){
