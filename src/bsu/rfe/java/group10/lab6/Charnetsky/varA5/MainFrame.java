@@ -1,4 +1,4 @@
-package bsu.rfe.java.group10.lab6.Charnetsky.varC3;
+package bsu.rfe.java.group10.lab6.Charnetsky.varA5;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
@@ -10,31 +10,22 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-@SuppressWarnings("serial")
-public class MainFrame extends JFrame{
-
-    // Константы, задающие размер окна приложения, если оно
-    // не распахнуто на весь экран
+public class MainFrame extends JFrame {
     private static final int WIDTH = 700;
     private static final int HEIGHT = 500;
     private JMenuItem pauseMenuItem;
+    private JMenuItem pauseGreenMenuItem;
     private JMenuItem resumeMenuItem;
 
-    // Поле, по которому прыгают мячи
     private Field field = new Field();
 
     public MainFrame() {
         super("Программирование и синхронизация потоков");
         setSize(WIDTH, HEIGHT);
         Toolkit kit = Toolkit.getDefaultToolkit();
-
-        // Отцентрировать окно приложения на экране
-        setLocation((kit.getScreenSize().width - WIDTH)/2, (kit.getScreenSize().height - HEIGHT)/2);
-
-        // Установить начальное состояние окна развёрнутым на весь экран
+        setLocation((kit.getScreenSize().width - WIDTH) / 2,
+                (kit.getScreenSize().height - HEIGHT) / 2);
         setExtendedState(MAXIMIZED_BOTH);
-
-        // Создать меню
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         JMenu ballMenu = new JMenu("Мячи");
@@ -42,45 +33,54 @@ public class MainFrame extends JFrame{
             public void actionPerformed(ActionEvent event) {
                 field.addBall();
                 if (!pauseMenuItem.isEnabled() &&
-                        !resumeMenuItem.isEnabled()) {
-                    // Ни один из пунктов меню не являются
-                    // доступными - сделать доступным "Паузу"
+                        !resumeMenuItem.isEnabled() &&
+                        !pauseGreenMenuItem.isEnabled()) {
                     pauseMenuItem.setEnabled(true);
+                    pauseGreenMenuItem.setEnabled(true);
+                    pauseGreenMenuItem.setEnabled(true);
                 }
             }
         };
-
         menuBar.add(ballMenu);
         ballMenu.add(addBallAction);
+
         JMenu controlMenu = new JMenu("Управление");
         menuBar.add(controlMenu);
-        Action pauseAction = new AbstractAction("Приостановить движение"){
+        Action pauseAction = new AbstractAction("Приостановить движение") {
             public void actionPerformed(ActionEvent event) {
                 field.pause();
+                pauseMenuItem.setEnabled(false);
+                pauseGreenMenuItem.setEnabled(false);
+                resumeMenuItem.setEnabled(true);
+            }
+        };
+        pauseMenuItem = controlMenu.add(pauseAction);
+        pauseMenuItem.setEnabled(false);
+
+        Action pauseActionGreen = new AbstractAction("Приостановить движение зеленых шаров") {
+            public void actionPerformed(ActionEvent event) {
+                field.pauseGreen();
                 pauseMenuItem.setEnabled(false);
                 resumeMenuItem.setEnabled(true);
             }
         };
+        pauseGreenMenuItem = controlMenu.add(pauseActionGreen);
+        pauseGreenMenuItem.setEnabled(false);
 
-        pauseMenuItem = controlMenu.add(pauseAction);
-        pauseMenuItem.setEnabled(false);
         Action resumeAction = new AbstractAction("Возобновить движение") {
             public void actionPerformed(ActionEvent event) {
                 field.resume();
                 pauseMenuItem.setEnabled(true);
+                pauseGreenMenuItem.setEnabled(true);
                 resumeMenuItem.setEnabled(false);
             }
         };
-
         resumeMenuItem = controlMenu.add(resumeAction);
         resumeMenuItem.setEnabled(false);
-        // Добавить в центр граничной компоновки поле Field
         getContentPane().add(field, BorderLayout.CENTER);
     }
 
-
     public static void main(String[] args) {
-        // Создать и сделать видимым главное окно приложения
         MainFrame frame = new MainFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
